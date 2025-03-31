@@ -1,0 +1,28 @@
+
+.container  h1 {
+    text-align: center;
+}
+  
+.custom-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Минимальная высота контейнера на всю высоту экрана */
+    padding: 20px; /* Внутренний отступ для контейнера */
+    border: none;
+}
+
+.custom-card {
+    width: 500px; /* Ширина карточки */
+    padding: 20px; /* Внутренний отступ для карточки */
+}
+
+.card {
+    max-width: 500px;
+    margin: 0 auto; /* Центрирование карточки */
+}
+
+#editProfileForm {
+    max-width: 500px;
+    margin: 20px auto; /* Центрирование формы */
+}

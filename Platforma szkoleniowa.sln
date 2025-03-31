@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{EE2B606B-4E11-4C5A-AD6E-FA039F55E2C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{5E3C4986-82C5-4964-BBC2-416B6B6B0A5D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{F5C78FC3-34EF-489C-831F-B266E3EA032B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE2B606B-4E11-4C5A-AD6E-FA039F55E2C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE2B606B-4E11-4C5A-AD6E-FA039F55E2C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE2B606B-4E11-4C5A-AD6E-FA039F55E2C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE2B606B-4E11-4C5A-AD6E-FA039F55E2C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E3C4986-82C5-4964-BBC2-416B6B6B0A5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E3C4986-82C5-4964-BBC2-416B6B6B0A5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E3C4986-82C5-4964-BBC2-416B6B6B0A5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E3C4986-82C5-4964-BBC2-416B6B6B0A5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5C78FC3-34EF-489C-831F-B266E3EA032B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5C78FC3-34EF-489C-831F-B266E3EA032B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5C78FC3-34EF-489C-831F-B266E3EA032B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5C78FC3-34EF-489C-831F-B266E3EA032B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {82E35039-ED74-48A6-9CEA-C8854DF410E7}
+	EndGlobalSection
+EndGlobal

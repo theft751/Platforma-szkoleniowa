@@ -1,0 +1,51 @@
+body {
+    padding-top: 60px;
+}
+
+.navbar-brand {
+    font-size: 24px;
+}
+
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.col-md-4 {
+    padding-right: 15px;
+    margin-bottom: 50px;
+}
+
+.card {
+    width: 100%;
+    border: none;
+    text-align: left;
+    padding: 0;
+    margin-bottom: 100px;
+}
+
+    .card img {
+        width: 100%;
+        height: auto;
+        max-height: 100%;
+        object-fit: cover;
+        aspect-ratio: 16/9;
+    }
+
+.card-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}

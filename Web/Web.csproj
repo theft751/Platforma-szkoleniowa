@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\js\EditFilm.js" />
+    <Content Remove="wwwroot\js\HomeIndex.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\js\EditFilm.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\HomeIndex.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\EditFilm.js" />
+    <None Include="wwwroot\js\HomeIndex.js" />
+  </ItemGroup>
+   <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+  </ItemGroup>
+
+   <ItemGroup>
+     <PackageReference Include="Mapster" Version="7.4.0" />
+     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
+     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
+       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+       <PrivateAssets>all</PrivateAssets>
+     </PackageReference>
+     <PackageReference Include="Microsoft.Extensions.Features" Version="8.0.7" />
+   </ItemGroup>
+</Project>

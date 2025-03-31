@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Practice</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Practice.styles.css" asp-append-version="true" />
+    @section style {}
+    @RenderSection("style", required: false)
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse d-flex">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Films</a>
+                    <a class="nav-link text-dark ms-auto" asp-area="" asp-controller="Films" asp-action="Create">Create Film</a>
+                    <a class="nav-link text-dark ml-auto" asp-area="" asp-controller="Profile" asp-action="Index">Profile</a>
+                    <a type="button" class="btn btn-link nav-link" asp-controller="Auth" asp-action="Logout">
+                        <img src="~/assets/logout.svg" alt="Logout" style="height: 1.5rem;" />
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <main role="main" class="container-fluid" style="height: 100%;">
+            @RenderBody()
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
