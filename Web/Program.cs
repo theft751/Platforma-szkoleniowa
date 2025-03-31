@@ -1,5 +1,6 @@
 using Domain.Models;
 using Infrastructure;
+using Infrastructure.Seed;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,13 @@ builder.Services.AddIdentity<User, IdentityRole<Guid>>()
 builder.Services.AddHostedService<DbInitializer>();
 
 var app = builder.Build();
+
+// Seed Data configuration
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    await Seed.Init(serviceProvider);
+}
 
 if (!app.Environment.IsDevelopment())
 {
