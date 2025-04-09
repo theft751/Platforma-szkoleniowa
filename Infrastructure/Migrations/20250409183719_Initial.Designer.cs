@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240720114449_UpdateUserModel")]
-    partial class UpdateUserModel
+    [Migration("20250409183719_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,29 +24,6 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Domain.Models.Answer", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsTrue")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("QuestionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuestionId");
-
-                    b.ToTable("Answers");
-                });
 
             modelBuilder.Entity("Domain.Models.Film", b =>
                 {
@@ -70,6 +47,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ImageId")
+                        .IsUnique();
 
                     b.ToTable("Films");
                 });
@@ -97,9 +77,6 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FilmId")
-                        .IsUnique();
-
                     b.ToTable("Images");
                 });
 
@@ -109,12 +86,32 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("FilmId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Text")
+                    b.Property<string>("A")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("B")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("C")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CorrectAnswer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("D")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("FilmId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -144,10 +141,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Gmina")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -332,26 +325,15 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Models.Answer", b =>
+            modelBuilder.Entity("Domain.Models.Film", b =>
                 {
-                    b.HasOne("Domain.Models.Question", "Question")
-                        .WithMany("Answers")
-                        .HasForeignKey("QuestionId")
+                    b.HasOne("Domain.Models.Image", "Image")
+                        .WithOne("Film")
+                        .HasForeignKey("Domain.Models.Film", "ImageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Question");
-                });
-
-            modelBuilder.Entity("Domain.Models.Image", b =>
-                {
-                    b.HasOne("Domain.Models.Film", "Film")
-                        .WithOne("Image")
-                        .HasForeignKey("Domain.Models.Image", "FilmId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Film");
+                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("Domain.Models.Question", b =>
@@ -418,15 +400,13 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Film", b =>
                 {
-                    b.Navigation("Image")
-                        .IsRequired();
-
                     b.Navigation("Questions");
                 });
 
-            modelBuilder.Entity("Domain.Models.Question", b =>
+            modelBuilder.Entity("Domain.Models.Image", b =>
                 {
-                    b.Navigation("Answers");
+                    b.Navigation("Film")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

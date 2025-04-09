@@ -22,7 +22,6 @@ namespace Infrastructure.Seed
         private static async Task ClearDatabaseAsync(AppDbContext dbContext)
         {
             dbContext.RemoveRange(dbContext.Set<User>());
-            dbContext.RemoveRange(dbContext.Set<Answer>());
             dbContext.RemoveRange(dbContext.Set<Film>());
             dbContext.RemoveRange(dbContext.Set<Image>());
             dbContext.RemoveRange(dbContext.Set<Question>());
@@ -39,7 +38,7 @@ namespace Infrastructure.Seed
                 if (!await roleManager.RoleExistsAsync(role))
                 {
                     await roleManager.CreateAsync(new IdentityRole<Guid> { Name = role });
-                    Console.WriteLine($"Role '{role}' created.");
+                    //Console.WriteLine($"Role '{role}' created.");
                 }
             }
         }
@@ -48,20 +47,20 @@ namespace Infrastructure.Seed
         {
             var users = new List<User>
             {
-                new User { UserName = "admin@example.com", Email = "admin@example.com", FirstName = "Admin", LastName = "User", Gmina = "Central" },
-                new User { UserName = "john.doe@example.com", Email = "john.doe@example.com", FirstName = "John", LastName = "Doe", Gmina = "West" },
-                new User { UserName = "jane.smith@example.com", Email = "jane.smith@example.com", FirstName = "Jane", LastName = "Smith", Gmina = "East" }
+                new User { UserName = "admin@example.com", Email = "admin@example.com", FirstName = "Admin", LastName = "User" },
+                new User { UserName = "user1@example.com", Email = "user1@example.com", FirstName = "John", LastName = "Doe" },
+                new User { UserName = "user2@example.com", Email = "user2@example.com", FirstName = "Jane", LastName = "Smith" }
             };
 
             foreach (var user in users)
             {
-                if (await userManager.FindByEmailAsync(user.Email) == null)
+                if (await userManager.FindByEmailAsync(user.Email!) == null)
                 {
-                    var result = await userManager.CreateAsync(user, "Password123!");
+                    var result = await userManager.CreateAsync(user, "Haslo123!");
                     if (result.Succeeded)
                     {
                         await userManager.AddToRoleAsync(user, user.UserName == "admin@example.com" ? "Admin" : "User");
-                        Console.WriteLine($"User '{user.UserName}' created.");
+                        //Console.WriteLine($"User '{user.UserName}' created.");
                     }
                 }
             }
@@ -69,64 +68,47 @@ namespace Infrastructure.Seed
 
         private static async Task SeedFilmsAsync(AppDbContext dbContext)
         {
-            var films = new List<Film>
+            var film = new Film
             {
-                new Film
+                Id = Guid.NewGuid(),
+                Name = "Sample Film 1",
+                Content = File.ReadAllBytes(GetMoviesPaths().FirstOrDefault()!),
+                ContentType = "video/mp4",
+                Image = GetPhotos().FirstOrDefault()!
+            };
+
+            var questions = new List<Question>
+            {
+                new Question
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Sample Film 1",
-                    Content = File.ReadAllBytes(GetMoviesPaths().FirstOrDefault()!),
-                    ContentType = "video/mp4",
-                    Questions = new List<Question>(),
-                    Image = GetPhotos().FirstOrDefault()!
+                    Film = film,
+                    FilmId = film.Id,
+                    Content = "Is this a sample question for " + film.Name + "?",
+                    A = "Yes",
+                    B = "No",
+                    C = "Maybe",
+                    D = "Not sure",
+                    CorrectAnswer = "Yes"
                 },
-                new Film
+                new Question
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Sample Film 2",
-                    Content = File.ReadAllBytes(GetMoviesPaths().FirstOrDefault()!),
-                    ContentType = "video/mp4",
-                    Questions = new List<Question>(),
-                    Image = GetPhotos().FirstOrDefault()!
-                },
-                new Film
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Sample Film 3",
-                    Content = File.ReadAllBytes(GetMoviesPaths().FirstOrDefault()!),
-                    ContentType = "video/mp4",
-                    Questions = new List<Question>(),
-                    Image = GetPhotos().FirstOrDefault()!
-                },
-                new Film
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Sample Film 4",
-                    Content = File.ReadAllBytes(GetMoviesPaths().FirstOrDefault()!),
-                    ContentType = "video/mp4",
-                    Questions = new List<Question>(),
-                    Image = GetPhotos().FirstOrDefault()!
+                    Film = film,
+                    FilmId = film.Id,
+                    Content = "Is this a sample question for " + film.Name + "?",
+                    A = "Yes",
+                    B = "No",
+                    C = "Maybe",
+                    D = "Not sure",
+                    CorrectAnswer = "No"
                 }
             };
 
-            foreach (var film in films)
-            {
-                var question = new Question
-                {
-                    Id = Guid.NewGuid(),
-                    Text = "Is this a sample question for " + film.Name + "?",
-                    Film = film,
-                    Answers = new List<Answer>
-                    {
-                        new Answer { Id = Guid.NewGuid(), Text = "Yes", IsTrue = true },
-                        new Answer { Id = Guid.NewGuid(), Text = "No", IsTrue = false }
-                    }
-                };
+            film.Questions = questions;
 
-                film.Questions.Add(question);
-            }
-
-            await AddEntitiesAsync(dbContext, films);
+            await dbContext.AddAsync(film);
+            await dbContext.SaveChangesAsync();
         }
 
         private static async Task AddEntitiesAsync<T>(AppDbContext dbContext, List<T> entities) where T : class

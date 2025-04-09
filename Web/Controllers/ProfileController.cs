@@ -72,7 +72,6 @@ public class ProfileController : Controller
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
             user.Email = model.Email;
-            user.Gmina = model.Gmina;
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

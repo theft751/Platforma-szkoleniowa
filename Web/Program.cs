@@ -1,5 +1,6 @@
 using Domain.Models;
 using Infrastructure;
+using Infrastructure.Configuration.AutoMapperProfiles;
 using Infrastructure.Seed;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddAutoMapper(typeof(MainProfile));
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString, b => b.MigrationsAssembly("Infrastructure")));

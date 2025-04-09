@@ -24,5 +24,4 @@ public class RegisterViewModel
     [HasOneUppercase(ErrorMessage = "Password must have at list one uppercase letter")]
     [HasOneSpecialSymbol(ErrorMessage = "Password must have at list one special symbol")]
     public string Password { get; set; } = null!;
-    public string Gmina { get; set; } = null!;
 }

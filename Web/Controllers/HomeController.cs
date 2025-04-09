@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure;
-using Domain.ViewModel;
 using Mapster;
+using Domain.ViewModels;
 
 namespace Web.Controllers;
 

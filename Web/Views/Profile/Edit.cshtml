@@ -32,11 +32,6 @@
                         <input type="email" class="form-control" id="email" name="Email" value="@Model.Email">
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label for="gmina">Gmina</label>
-                        <input type="text" class="form-control" id="gmina" name="Gmina" value="@Model.Gmina">
-                        <span asp-validation-for="Gmina" class="text-danger"></span>
-                    </div>
                     <button type="submit" class="btn btn-primary">Save Changes</button>
                     <a asp-action="Index" class="btn btn-danger">Cancel</a>
                 </form>

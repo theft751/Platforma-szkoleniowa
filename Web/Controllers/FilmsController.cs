@@ -1,8 +1,8 @@
 ﻿using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Models;
-using Domain.ViewModel;
 using Microsoft.EntityFrameworkCore;
+using Domain.ViewModels;
 
 namespace Web.Controllers;
 

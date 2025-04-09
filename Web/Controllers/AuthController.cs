@@ -57,8 +57,7 @@ public class AuthController(SignInManager<User> signIn, UserManager<User> userMa
             FirstName = model.FirstName,
             LastName = model.LastName,
             UserName = model.Email,
-            Email = model.Email,
-            Gmina = model.Gmina
+            Email = model.Email
         };
         var result = await userManager.CreateAsync(user, model.Password);
 

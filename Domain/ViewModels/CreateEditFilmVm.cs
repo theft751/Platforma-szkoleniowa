@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Domain.ViewModel;
+namespace Domain.ViewModels;
 public class CreateEditFilmVm
 {
     public Guid Id { get; set; } = new Guid();
