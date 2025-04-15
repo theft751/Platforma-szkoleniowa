@@ -1,25 +1,65 @@
-@model Domain.ViewModels.CreateEditFilmVm
+﻿@model Domain.ViewModels.CreateEditFilmVm
 
-<h1>Edit Film</h1>
-<form asp-action="EditAndAdd" asp-controller="Films" method="post" enctype="multipart/form-data">
-    <label asp-for="Name" id="NameFieldset">Name</label>
-    <input asp-for="Name" />
-    <br/>
+<div class="box">
+    <h1>Edit Film</h1>
 
-    <input type="checkbox" id="checkboxForVideo" /> <label asp-for="VideoFile">Video File</label>
-    <fieldset id="VideoFileFieldset" disabled>
-        <input asp-for="VideoFile"/>
-    </fieldset>
-    <br/>
+    <form asp-action="EditAndAdd" asp-controller="Films" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="Name">Nazwa filmu</label>
+            <input asp-for="Name" />
+        </div>
 
-    <input type="checkbox" id="checkboxForImage"/><label asp-for="ImageFile">Image File</label>
-    <fieldset id="ImageFileFieldset" disabled>
-        <input asp-for="ImageFile" />
-    </fieldset>
-    <br/>
+        <div class="form-group">
+            <label><input type="checkbox" id="checkboxForVideo" /> Video File</label>
+            <fieldset id="VideoFileFieldset" disabled>
+                <input asp-for="VideoFile" />
+            </fieldset>
+        </div>
 
-    <input asp-for="Id" hidden/>
-    <button type="submit" class="btn btn-primary">Edit</button>
-</form>
+        <div class="form-group">
+            <label><input type="checkbox" id="checkboxForImage" /> Image File</label>
+            <fieldset id="ImageFileFieldset" disabled>
+                <input asp-for="ImageFile" />
+            </fieldset>
+        </div>
+
+        <input asp-for="Id" hidden />
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+        </div>
+    </form>
+</div>
+
+<div class="box">
+    <h2>Quiz</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Pytanie</th>
+                <th>Poprawna</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var question in Model.Questions)
+            {
+                <tr>
+                    <td>@question.Content</td>
+                    <td>@question.CorrectAnswer</td>
+                    <td>
+                        <a class="btn btn-sm btn-warning" href="@Url.Action("Edit", "Question", new { id = question.Id })">Edytuj</a>
+                        <form asp-controller="Question" asp-action="Delete" asp-route-id="@question.Id" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Usunąć pytanie?')">Usuń</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a class="btn btn-success add-question-btn" href="@Url.Action("Create", "Question", new { filmId = Model.Id })">Dodaj pytanie</a>
+</div>
 
 <script src="~/js/EditFilm.js"></script>

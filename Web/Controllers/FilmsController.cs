@@ -72,17 +72,36 @@ public class FilmsController : Controller
         return RedirectToAction("Index", "Home");
     }
 
+    //[HttpGet("Edit/{id:guid}")]
+    //public IActionResult Edit(Guid id)
+    //{
+    //    var film = _dbContext.Films.Find(id);
+    //    if (film is null) return NotFound($"film with id: {id} not found");
+
+    //    var viewModel = new CreateEditFilmVm 
+    //    {
+    //        Name = film.Name
+    //    };
+    //    viewModel.Id = id;
+    //    return View(viewModel);
+    //}
+
     [HttpGet("Edit/{id:guid}")]
     public IActionResult Edit(Guid id)
     {
-        var film = _dbContext.Films.Find(id);
+        var film = _dbContext.Films
+            .Include(f => f.Questions)
+            .FirstOrDefault(f => f.Id == id);
+
         if (film is null) return NotFound($"film with id: {id} not found");
 
-        var viewModel = new CreateEditFilmVm 
+        var viewModel = new CreateEditFilmVm
         {
-            Name = film.Name
+            Id = id,
+            Name = film.Name,
+            Questions = film.Questions.ToList()
         };
-        viewModel.Id = id;
+
         return View(viewModel);
     }
 

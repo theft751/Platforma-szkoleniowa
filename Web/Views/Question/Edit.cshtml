@@ -1,0 +1,50 @@
+﻿@model Domain.ViewModels.QuestionVM
+@{
+    ViewBag.Title = "Edytuj pytanie";
+    var filmId = ViewBag.FilmId;
+}
+
+<h2>Edytuj pytanie</h2>
+
+<form asp-action="Edit" asp-controller="Question" method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" name="filmId" value="@filmId" />
+
+    <div>
+        <label>Pytanie:</label>
+        <input asp-for="Content" class="form-control" />
+    </div>
+
+    <div>
+        <label>Odpowiedź A:</label>
+        <input asp-for="A" class="form-control" />
+    </div>
+
+    <div>
+        <label>Odpowiedź B:</label>
+        <input asp-for="B" class="form-control" />
+    </div>
+
+    <div>
+        <label>Odpowiedź C:</label>
+        <input asp-for="C" class="form-control" />
+    </div>
+
+    <div>
+        <label>Odpowiedź D:</label>
+        <input asp-for="D" class="form-control" />
+    </div>
+
+    <div>
+        <label>Poprawna odpowiedź:</label>
+        <select asp-for="CorrectAnswer" class="form-control">
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+</form>
+

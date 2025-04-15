@@ -8,5 +8,7 @@
         public string B { get; set; } = null!;
         public string C { get; set; } = null!;
         public string D { get; set; } = null!;
+
+        public string CorrectAnswer { get; set; } = null!;
     }
 }

@@ -1,0 +1,92 @@
+﻿@model List<Domain.ViewModels.AnswerVM>
+
+<div class="quiz-container">
+    <h2>Rozwiąż quiz</h2>
+
+    <form asp-action="SubmitQuiz" method="post">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <div class="question">
+                <p><strong>Pytanie @(@i + 1):</strong> @Model[i].Content</p>
+                <input type="hidden" name="[@i].Id" value="@Model[i].Id" />
+
+                <label><input type="radio" name="[@i].UserAnswer" value="A" /> A</label><br />
+                <label><input type="radio" name="[@i].UserAnswer" value="B" /> B</label><br />
+                <label><input type="radio" name="[@i].UserAnswer" value="C" /> C</label><br />
+                <label><input type="radio" name="[@i].UserAnswer" value="D" /> D</label><br />
+            </div>
+            <hr />
+        }
+
+        <button type="submit">Zakończ quiz</button>
+    </form>
+</div>
+
+
+<style>
+    .quiz-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 24px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        font-family: 'Arial', sans-serif;
+    }
+
+        .quiz-container h2 {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 24px;
+            font-weight: bold;
+        }
+
+        .quiz-container .question {
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .quiz-container p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .quiz-container label {
+            font-size: 16px;
+            color: #555;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .quiz-container input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        .quiz-container button {
+            display: block;
+            margin: 30px auto;
+            padding: 12px 30px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            .quiz-container button:hover {
+                background-color: #0056b3;
+            }
+
+        .quiz-container hr {
+            border: 0;
+            border-top: 1px solid #ddd;
+            margin: 20px 0;
+        }
+</style>

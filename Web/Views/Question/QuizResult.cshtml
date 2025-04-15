@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Wynik quizu";
+}
+
+<div class="result-container">
+    <h2>Wynik quizu</h2>
+    <p>Poprawnych odpowiedzi: <span class="score">@ViewBag.CorrectAnswers</span></p>
+
+    <a href="@Url.Action("Index", "Home")" class="btn-back">Powrót do strony głównej</a>
+</div>
+
+
+<style>
+    .result-container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 24px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        font-family: 'Arial', sans-serif;
+    }
+
+        .result-container h2 {
+            margin-bottom: 24px;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .result-container p {
+            font-size: 18px;
+            color: #555;
+            margin-top: 12px;
+            font-weight: 500;
+        }
+
+        .result-container .score {
+            font-size: 32px;
+            color: #4caf50;
+            font-weight: 700;
+            margin-top: 20px;
+        }
+
+    .btn-back {
+        margin-top: 30px;
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background-color 0.2s;
+    }
+
+        .btn-back:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+</style>

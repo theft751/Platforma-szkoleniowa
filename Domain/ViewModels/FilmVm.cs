@@ -7,4 +7,6 @@ public class FilmVm
     public string ImageContentType { get; set; } = null!;
     public string Name { get; set; } = null!;
     public string Caption { get; set; } = null!;
+    public List<QuestionVM> Questions { get; set; } = new();
+
 }
