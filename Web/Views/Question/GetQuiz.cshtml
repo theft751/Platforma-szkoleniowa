@@ -10,10 +10,10 @@
                 <p><strong>Pytanie @(@i + 1):</strong> @Model[i].Content</p>
                 <input type="hidden" name="[@i].Id" value="@Model[i].Id" />
 
-                <label><input type="radio" name="[@i].UserAnswer" value="A" /> A</label><br />
-                <label><input type="radio" name="[@i].UserAnswer" value="B" /> B</label><br />
-                <label><input type="radio" name="[@i].UserAnswer" value="C" /> C</label><br />
-                <label><input type="radio" name="[@i].UserAnswer" value="D" /> D</label><br />
+                <label>A <input type="radio" name="[@i].UserAnswer" value="@Model[i].A" /> @Model[i].A</label><br />
+                <label>B <input type="radio" name="[@i].UserAnswer" value="@Model[i].B" /> @Model[i].B</label><br />
+                <label>C <input type="radio" name="[@i].UserAnswer" value="@Model[i].C" /> @Model[i].C</label><br />
+                <label>D <input type="radio" name="[@i].UserAnswer" value="@Model[i].D" /> @Model[i].D</label><br />
             </div>
             <hr />
         }

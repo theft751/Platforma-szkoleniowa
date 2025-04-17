@@ -16,7 +16,10 @@
             <div class="container-fluid">
                 <div class="collapse navbar-collapse d-flex">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Films</a>
-                    <a class="nav-link text-dark ms-auto" asp-area="" asp-controller="Films" asp-action="Create">Create Film</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="nav-link text-dark ms-auto" asp-area="" asp-controller="Films" asp-action="Create">Create Film</a>
+                    }
                     <a class="nav-link text-dark ml-auto" asp-area="" asp-controller="Profile" asp-action="Index">Profile</a>
                     <a type="button" class="btn btn-link nav-link" asp-controller="Auth" asp-action="Logout">
                         <img src="~/assets/logout.svg" alt="Logout" style="height: 1.5rem;" />

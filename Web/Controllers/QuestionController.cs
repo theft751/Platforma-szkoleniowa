@@ -26,7 +26,11 @@ namespace Web.Controllers
             var answers = questions.Select(q => new AnswerVM
             {
                 Id = q.Id,
-                Content = q.Content
+                Content = q.Content,
+                A = q.A,
+                B = q.B,
+                C = q.C,
+                D = q.D
             }).ToList();
 
             return View(answers);

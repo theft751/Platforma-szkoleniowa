@@ -8,7 +8,7 @@
     </video>
 
     <br />
-    <a class="btn" asp-controller="Question" asp-action="GetQuiz" asp-route-filmId="@Model.Id">
+    <a class="btn goQuiz" asp-controller="Question" asp-action="GetQuiz" asp-route-filmId="@Model.Id">
         Rozwiąż quiz
     </a>
 </div>
@@ -34,7 +34,7 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
 
-    .btn {
+    a.goQuiz {
         display: inline-block;
         margin-top: 24px;
         padding: 10px 20px;
@@ -46,7 +46,7 @@
         transition: background-color 0.2s;
     }
 
-        .btn:hover {
+        a.goQuiz:hover {
             background-color: #0056b3;
             color: white;
         }
