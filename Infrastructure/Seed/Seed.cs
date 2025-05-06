@@ -102,6 +102,18 @@ namespace Infrastructure.Seed
                     C = "Maybe",
                     D = "Not sure",
                     CorrectAnswer = "No"
+                },
+                new Question
+                {
+                    Id = Guid.NewGuid(),
+                    Film = film,
+                    FilmId = film.Id,
+                    Content = "Is this a sample question for " + film.Name + "?",
+                    A = "Yes",
+                    B = "No",
+                    C = "Maybe",
+                    D = "Not sure",
+                    CorrectAnswer = "Not sure"
                 }
             };
 
