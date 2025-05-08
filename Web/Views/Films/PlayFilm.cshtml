@@ -11,6 +11,15 @@
     <a class="btn goQuiz" asp-controller="Question" asp-action="GetQuiz" asp-route-filmId="@Model.Id">
         Rozwiąż quiz
     </a>
+    @if (User.IsInRole("Admin"))
+    {
+        <br/>
+        <a class="btn goQuiz" asp-controller="Question" asp-action="GetUsersAndAnswers" asp-route-filmId="@Model.Id">
+            Zobacz odpowiedzi użytkowników
+        </a>
+    }
+    
+
 </div>
 
 

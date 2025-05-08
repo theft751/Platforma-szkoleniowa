@@ -2,6 +2,7 @@
 using Domain.Models;
 using Domain.ViewModels;
 using Infrastructure;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,12 +11,14 @@ namespace Web.Controllers
     public class QuestionController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly IMapper _mapper;   
+        private readonly IMapper _mapper;
+        private readonly UserManager<User>_userManager;
 
-        public QuestionController(AppDbContext context, IMapper mapper)
+        public QuestionController(AppDbContext context, IMapper mapper, UserManager<User> userManager)
         {
             _context = context;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -37,20 +40,60 @@ namespace Web.Controllers
         }
 
         [HttpPost]
+        //public async Task<IActionResult> SubmitQuiz(List<AnswerVM> questions)
+        //{
+        //    var correctAnswers = 0;
+        //    foreach (var question in questions)
+        //    {
+        //        var dbQuestion = await _context.Questions.FindAsync(question.Id);
+        //        if (dbQuestion != null && question.UserAnswer != null && dbQuestion.CorrectAnswer == question.UserAnswer)
+        //        {
+        //            correctAnswers++;
+        //        }
+        //    }
+        //    ViewBag.CorrectAnswers = correctAnswers;
+        //    return View("QuizResult");
+        //}
+        [HttpPost]
         public async Task<IActionResult> SubmitQuiz(List<AnswerVM> questions)
         {
-            var correctAnswers = 0;
+            // 1. Pobierz aktualnie zalogowanego użytkownika
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return Unauthorized();
+
+            int correctAnswers = 0;
+
             foreach (var question in questions)
             {
                 var dbQuestion = await _context.Questions.FindAsync(question.Id);
-                if (dbQuestion != null && question.UserAnswer != null && dbQuestion.CorrectAnswer == question.UserAnswer)
+                if (dbQuestion == null) continue;
+
+                // 2. Zlicz poprawne odpowiedzi
+                if (!string.IsNullOrWhiteSpace(question.UserAnswer) &&
+                    dbQuestion.CorrectAnswer == question.UserAnswer)
                 {
                     correctAnswers++;
                 }
+
+                // 3. Zapisz odpowiedź użytkownika
+                var userAnswer = new UserAnswerOnQuestion
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = user.Id,
+                    Question = dbQuestion,
+                    userAnswer = question.UserAnswer
+                };
+
+                _context.Answers.Add(userAnswer); // Zakładam, że DbSet nazywa się "Answers"
             }
+
+            await _context.SaveChangesAsync(); // 4. Zapisz wszystkie odpowiedzi w bazie
+
             ViewBag.CorrectAnswers = correctAnswers;
             return View("QuizResult");
         }
+
+
 
         [HttpGet]
         public IActionResult Create(Guid filmId)
@@ -143,5 +186,37 @@ namespace Web.Controllers
 
             return RedirectToAction("Edit", "Films", new { id = filmId });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUsersAndAnswers(Guid filmId)
+        {
+            var answers = await _context.Answers
+                .Include(a => a.User)
+                .Include(a => a.Question)
+                .Where(a => a.Question.FilmId == filmId)
+                .ToListAsync();
+
+            var answersGroupedByUser = answers
+                .GroupBy(a => a.UserId)
+                .Select(group => new UserAnswersVM
+                {
+                    UserName = group.First().User.FirstName + " " + group.First().User.LastName,
+                    Answers = group.Select(a => new AnswerVM
+                    {
+                        Id = a.Question.Id,
+                        Content = a.Question.Content,
+                        A = a.Question.A,
+                        B = a.Question.B,
+                        C = a.Question.C,
+                        D = a.Question.D,
+                        UserAnswer = a.userAnswer,
+                        CorrectAnswer = a.Question.CorrectAnswer
+                    }).ToList()
+                })
+                .ToList();
+
+            return View(answersGroupedByUser);
+        }
+
     }
 }

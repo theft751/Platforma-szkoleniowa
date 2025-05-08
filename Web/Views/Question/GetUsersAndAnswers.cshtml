@@ -1,0 +1,37 @@
+﻿@model List<Domain.ViewModels.UserAnswersVM>
+
+@{
+    ViewData["Title"] = "User Answers for Film";
+}
+
+<h2>User Answers</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No answers have been submitted for this film.</p>
+}
+else
+{
+    foreach (var user in Model)
+    {
+        <div class="card mb-4 p-3 shadow-sm border rounded">
+            <h4>@user.UserName</h4>
+
+            @foreach (var answer in user.Answers)
+            {
+                <div class="mb-3">
+                    <strong>Question:</strong> @answer.Content<br />
+                    <ul>
+                        <li>A: @answer.A</li>
+                        <li>B: @answer.B</li>
+                        <li>C: @answer.C</li>
+                        <li>D: @answer.D</li>
+                    </ul>
+                    <p><strong>User Answer:</strong> @answer.UserAnswer</p>
+                    <p><strong>Correct Answer:</strong> @answer.CorrectAnswer</p>
+                    <hr />
+                </div>
+            }
+        </div>
+    }
+}
